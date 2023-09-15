@@ -8,7 +8,7 @@ export default function ResetPasswordPage() {
       <ResetPasswordForm />
       <Link
         href={"/auth/sign-up"}
-        className="text-sm text-emerald-400 font-medium"
+        className="text-sm font-medium"
       >
         Remember your password? Sign In
       </Link>

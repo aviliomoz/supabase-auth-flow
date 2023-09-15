@@ -31,15 +31,12 @@ export const SignInForm = () => {
           className="border rounded-md px-3 py-1 outline-none w-full"
         />
       </label>
-      <Link
-        href={"/auth/reset-password"}
-        className="text-sm text-emerald-400 font-medium mx-auto mt-3"
-      >
+      <Link href={"/auth/reset-password"} className="text-sm mx-auto mt-3">
         Forgot your password?
       </Link>
       <button
         type="submit"
-        className="bg-emerald-500 text-white text-sm font-medium w-10/12 hover:bg-emerald-400 py-1.5 mt-4 rounded-full mx-auto"
+        className="bg-black text-white text-sm font-medium hover:bg-opacity-95 hover:shadow-md py-1.5 mt-4 rounded-md"
       >
         Submit
       </button>

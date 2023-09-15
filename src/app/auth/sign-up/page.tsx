@@ -8,7 +8,7 @@ export default function SignUpPage() {
       <SignUpForm />
       <Link
         href={"/auth/sign-in"}
-        className="text-sm text-emerald-400 font-medium"
+        className="text-sm font-medium"
       >
         Already have an account? Sign In
       </Link>

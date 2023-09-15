@@ -22,7 +22,7 @@ export const UpdatePasswordForm = () => {
       </label>
       <button
         type="submit"
-        className="bg-emerald-500 text-white text-sm font-medium w-10/12 hover:bg-emerald-400 py-1.5 mt-4 rounded-full mx-auto"
+        className="bg-black text-white text-sm font-medium hover:bg-opacity-95 hover:shadow-md py-1.5 mt-4 rounded-md"
       >
         Update password
       </button>
