@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const requestURL = new URL(req.url);
   const code = requestURL.searchParams.get("code");
