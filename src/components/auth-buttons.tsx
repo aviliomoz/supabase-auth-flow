@@ -1,28 +1,19 @@
-"use client";
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
-export const AuthButtons = () => {
-  const supabase = createClientComponentClient();
-  const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
+export const AuthButtons = async () => {
+  const supabase = createServerComponentClient({ cookies });
 
-  useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) =>
-        !session ? setIsAuth(false) : setIsAuth(true)
-      );
-  }, [supabase]);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (isAuth === undefined) return <></>;
-
-  if (isAuth)
+  if (session)
     return (
       <Link
         href={"/profile"}
-        className="border px-8 py-2 text-sm rounded-md shadow-sm hover:shadow-md transition-all bg-emerald-500 text-white "
+        className="border px-8 py-2 text-sm rounded-md shadow-sm hover:shadow-md transition-all bg-black text-white"
       >
         Go to profile page
       </Link>
@@ -38,7 +29,7 @@ export const AuthButtons = () => {
       </Link>
       <Link
         href={"/auth/sign-up"}
-        className="border px-8 py-2 text-sm rounded-md shadow-sm hover:shadow-md transition-all bg-black text-white "
+        className="border px-8 py-2 text-sm rounded-md shadow-sm hover:shadow-md transition-all bg-black text-white"
       >
         Sign up
       </Link>

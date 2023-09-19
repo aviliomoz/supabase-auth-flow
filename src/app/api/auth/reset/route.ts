@@ -3,8 +3,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Esta parte del flujo solo aplica al utilizar proveedores OAuth
-
 export async function GET(req: NextRequest) {
   const requestURL = new URL(req.url);
   const code = requestURL.searchParams.get("code");
@@ -12,6 +10,8 @@ export async function GET(req: NextRequest) {
   if (code) {
     const supabase = createRouteHandlerClient({ cookies });
     await supabase.auth.exchangeCodeForSession(code);
+
+    return NextResponse.redirect(`${requestURL.origin}/update-password`);
   }
 
   return NextResponse.redirect(requestURL.origin);

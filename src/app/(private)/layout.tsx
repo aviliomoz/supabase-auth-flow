@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 type Props = {
-  children: React.ReactNode;
+  children: JSX.Element | JSX.Element[];
 };
 
 export default async function PrivateLayout({ children }: Props) {
@@ -15,5 +15,5 @@ export default async function PrivateLayout({ children }: Props) {
 
   if (!session) redirect("/auth/sign-in");
 
-  return <>{children}</>;
+  return children;
 }

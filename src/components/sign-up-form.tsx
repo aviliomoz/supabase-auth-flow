@@ -1,13 +1,33 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { signUpSchema } from "@/schemas/auth";
+import toast from "react-hot-toast";
 
 export const SignUpForm = () => {
+  const supabase = createClientComponentClient();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const validation = signUpSchema.safeParse({ email, password });
+
+    if (!validation.success) {
+      return toast.error(validation.error.errors[0].message);
+    } else {
+      const { error } = await supabase.auth.signUp(validation.data);
+
+      if (error) {
+        return toast.error(error.message);
+      } else {
+        toast.success("Usuario creado exitosamente");
+        return toast.success("Sessión iniciada como: " + validation.data.email);
+      }
+    }
   };
 
   return (

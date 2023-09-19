@@ -1,12 +1,34 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
+import { updatePasswordSchema } from "@/schemas/auth";
+import toast from "react-hot-toast";
 
 export const UpdatePasswordForm = () => {
+  const supabase = createClientComponentClient();
+  const router = useRouter();
+
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const validation = updatePasswordSchema.safeParse({ password });
+
+    if (!validation.success) {
+      return toast.error(validation.error.errors[0].message);
+    } else {
+      const { error } = await supabase.auth.updateUser({ password });
+
+      if (error) {
+        return toast.error(error.message);
+      } else {
+        toast.success("Contraseña actualizada exitosamente");
+        router.replace("/profile");
+      }
+    }
   };
 
   return (
